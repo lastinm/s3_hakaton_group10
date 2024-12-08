@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Загрузка данных из файла
-input_file = './data/geo-reviews-dataset-2023.tskv'
+input_file = '../data/geo-reviews-dataset-2023.tskv'
 
 # Определяем функцию для обработки строк
 def process_line(line):
@@ -40,5 +40,5 @@ data = [entry for entry in data if entry]
 df = pd.DataFrame(data)
 
 # Сохраняем в CSV
-output_file = './data/geo-reviews-dataset-2023.csv'
+output_file = '../data/geo-reviews-dataset-2023.csv'
 df.to_csv(output_file, index=False, encoding='utf-8')
