@@ -41,4 +41,6 @@ df = pd.DataFrame(data)
 
 # Сохраняем в CSV
 output_file = './data/geo-reviews-dataset-2023.csv'
-df.to_csv(output_file, index=False, encoding='utf-8')
+df.to_csv(output_file, index=False, encoding='utf-8', sep='|')
+
+

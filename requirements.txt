@@ -1,1 +1,8 @@
 pandas
+scikit-learn
+#nvidia-pyindex
+#nvidia-cuda-runtime-cu12
+#nvidia-cuda-nvcc-cu12
+torchvision
+torchaudio
+transformers
