@@ -15,19 +15,19 @@ with open(output_file, 'a', encoding='utf-8') as out_file:
     for chunk in pd.read_csv(input_file, sep='|', chunksize=chunksize, encoding='utf-8'):
         # Токенизация отзывов
         for index, row in chunk.iterrows():
-            address = row['address']
             name_ru = row['name_ru']
             rating = row['rating']
+            rubrics = row['rubrics']
             text = row['text']
-            rubrics_encoded = row['rubrics_encoded']
-            
+   
+
             # Токенизация текста с добавлением специальных токенов
             tokens = tokenizer.encode(text, add_special_tokens=True, truncation=True)
 
             # Преобразование токенов в строку
             tokens_str = ' '.join(map(str, tokens))
 
-            # Запись в файл: оригинальный текст, токены, адрес, название, рейтинг, рубрики
-            out_file.write(f"{address}|{name_ru}|{rating}|{rubrics_encoded}|{text}|{tokens_str}\n")
+            # Запись в файл: токены, название точки, рейтинг, рубрики
+            out_file.write(f"{name_ru}|{rating}|{rubrics}|{tokens_str}\n")
 
 print("Токенизация завершена и данные сохранены в файле:", output_file)

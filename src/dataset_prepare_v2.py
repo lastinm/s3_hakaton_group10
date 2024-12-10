@@ -42,7 +42,7 @@ data = [entry for entry in data if entry]
 df = pd.DataFrame(data)
 
 # избавимся от столбца с адресами
-df_exploded = df.drop(columns=['address'])
+df.drop(columns=['address'], inplace=True)
 
 # Удаление строк с пропущенными значениями
 df.dropna(inplace=True)
@@ -51,35 +51,11 @@ df.dropna(inplace=True)
 # Пример для поля name_ru
 df['name_ru'] = df['name_ru'].str.lower().str.split()
 
-# ====== LabelEncoder
-# Регулярное выражение для разделения строк по , и ;
-df_expanded = df['rubrics'].str.replace(';', ',', regex=False).str.split(',', expand=True).stack().reset_index(drop=True)
-
-# Удаление пробелов от начала и конца после разделения
-df_expanded = df_expanded.str.strip()
-
-# Создание объекта LabelEncoder
-label_encoder = LabelEncoder()
-
-# Обучение и преобразование категорий
-encoded_labels = label_encoder.fit_transform(df_expanded)
-
-# Создание DataFrame с закодированными метками
-encoded_df = pd.DataFrame({'rubrics_encoded': encoded_labels})
-
-# Добавление закодированного столбца обратно в исходный DataFrame
-# Для этого необходимо создать общий индекс для связывания с исходным DataFrame
-df_exploded = df.loc[df.index.repeat(df['rubrics'].str.count(';') + 1)].reset_index(drop=True)
-df_exploded['rubrics'] = df_expanded
-
-# Объединяем закодированные метки с взрывным DataFrame
-df_exploded = df_exploded.join(encoded_df)
-
-# Удаляем столбец 'rubrics'
-df_exploded = df_exploded.drop(columns=['rubrics'])
+# Для поля rubrics: токенизируем и сохраняем в виде списков
+df['rubrics'] = df['rubrics'].str.lower().str.replace(';', ',', regex=False).str.split(',')
 
 # Сохраняем в CSV
 output_file = './data/geo-reviews-dataset-2023.csv'
-df_exploded.to_csv(output_file, index=False, encoding='utf-8', sep='|')
+df.to_csv(output_file, index=False, encoding='utf-8', sep='|')
 
 

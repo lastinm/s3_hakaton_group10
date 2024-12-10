@@ -8,10 +8,11 @@ test_file = './data/test_data.csv'  # Путь для сохранения те�
 test_size = 0.2  # Размер тестовой выборки
 
 # Чтение данных из файла
-data = pd.read_csv(input_file, sep='|', header=None, encoding='utf-8', names=['address', 'name_ru', 'rating', 'rubrics', 'text', 'tokens'])
+data = pd.read_csv(input_file, sep='|', header=None, encoding='utf-8', names=['name_ru', 'rating', 'rubrics', 'tokens'])
 
 # Удаление ненужных столбцов
-data = data[['name_ru', 'rating', 'rubrics', 'tokens']]  # Оставляем только нужные столбцы
+#data = data[['name_ru', 'rating', 'rubrics', 'tokens']]  # Оставляем только нужные столбцы
+data = data[['tokens']]  # Оставляем только нужные столбцы
 
 # Деление данных на тренировочную и тестовую выборки с использованием train_test_split
 train_data, test_data = train_test_split(data, test_size=test_size, random_state=42)
