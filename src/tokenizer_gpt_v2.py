@@ -18,9 +18,9 @@ with open(output_file, 'a', encoding='utf-8') as out_file:
             address = row['address']
             name_ru = row['name_ru']
             rating = row['rating']
-            rubrics = row['rubrics']
             text = row['text']
-
+            rubrics_encoded = row['rubrics_encoded']
+            
             # Токенизация текста с добавлением специальных токенов
             tokens = tokenizer.encode(text, add_special_tokens=True, truncation=True)
 
@@ -28,6 +28,6 @@ with open(output_file, 'a', encoding='utf-8') as out_file:
             tokens_str = ' '.join(map(str, tokens))
 
             # Запись в файл: оригинальный текст, токены, адрес, название, рейтинг, рубрики
-            out_file.write(f"{address}|{name_ru}|{rating}|{rubrics}|{text}|{tokens_str}\n")
+            out_file.write(f"{address}|{name_ru}|{rating}|{rubrics_encoded}|{text}|{tokens_str}\n")
 
 print("Токенизация завершена и данные сохранены в файле:", output_file)
