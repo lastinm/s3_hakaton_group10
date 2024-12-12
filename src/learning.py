@@ -5,13 +5,13 @@ from datasets import Dataset
 import torch
 
 # Проверка доступности CUDA
-# if torch.cuda.is_available():
-#     device = torch.device("cuda")
-#     print("Using GPU")
-# else:
-#     device = torch.device("cpu")
-#     print("Using CPU")
-device = torch.device('cpu')  # Устанавливаем устройство на CPU
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+    print("Using GPU")
+else:
+    device = torch.device("cpu")
+    print("Using CPU")
+#device = torch.device('cpu')  # Устанавливаем устройство на CPU
 
 # Загрузка предобученного токенизатора и модели GPT-2
 tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
